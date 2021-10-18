@@ -1,0 +1,31 @@
+ bool subArrayExists(int arr[], int n) {
+        //Your code here
+        
+        unordered_map<int,int> mp;
+        
+        for(int i=1;i<n;i++) {
+            
+            if(arr[i]==0) {
+                return true;
+            }
+            
+            arr[i] += arr[i-1];
+        }
+        
+        for(int i=0;i<n;i++) {
+            
+            if(arr[i]==0) {
+                return true;
+            }
+            
+            mp[arr[i]]++;
+        }
+        
+        for(auto it : mp) {
+            if(it.second>1) {
+                return true;
+            }
+        }
+        return false;
+    }
+};
