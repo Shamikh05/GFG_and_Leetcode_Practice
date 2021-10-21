@@ -1,0 +1,21 @@
+int doUnion(int a[], int n, int b[], int m)  {
+        //code here
+        
+        vector<int> hash(100000,0);
+        
+        for(int i=0;i<n;i++) {
+            hash[a[i]] = 1;
+        }
+        
+        for(int i=0;i<m;i++) {
+            hash[b[i]] = 1;
+        }
+        
+        int ans = 0;
+        
+        for(int i=0;i<100000;i++) {
+            ans += hash[i];
+        }
+        
+        return ans;
+}
