@@ -1,0 +1,42 @@
+vector<vector<int>> levelOrder(TreeNode* root) {
+        
+        vector<vector<int> > v;
+        vector<int> temp;
+      
+        if(root==NULL)
+            return v;
+      
+        queue<TreeNode*> q;
+      
+        q.push(root);
+        q.push(NULL);
+      
+        while(!q.empty()) {
+          
+            TreeNode* curr = q.front();
+            q.pop();
+          
+            if(curr != NULL) {
+              
+                temp.push_back(curr->val);
+              
+                if(curr->left)
+                    q.push(curr->left);
+                
+                if(curr->right)
+                    q.push(curr->right);
+            }
+            else {
+                
+                v.push_back(temp);
+                
+                if(!q.empty())
+                    q.push(NULL);
+                
+                temp.clear();
+            }
+        }
+      
+        return v;
+        
+    }
