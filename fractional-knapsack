@@ -1,0 +1,32 @@
+static bool comp(pair<int,double> a,pair<int,double> b) {
+        return a.second > b.second;
+}
+    
+double fractionalKnapsack(int W, Item arr[], int n) {
+        // Your code here
+        
+        vector<pair<int,double> > v(n);
+        
+        for(int i=0;i<n;i++) {
+            v[i].first = arr[i].weight;
+            v[i].second = double(arr[i].value)/double(arr[i].weight);
+        }
+        
+        sort(v.begin(),v.end(),comp);
+        
+        double ans = 0;
+        
+        for(int i=0;i<n and W;i++) {
+            
+            if(v[i].first <= W) {
+                ans += v[i].first * v[i].second;
+                W -= v[i].first;
+            }
+            else if(v[i].first > W){
+                ans += v[i].second * W;
+                W = 0;
+            }
+        }
+        
+        return ans;
+}
