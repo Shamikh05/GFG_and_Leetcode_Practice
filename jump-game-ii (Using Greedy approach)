@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        
+        int maxDistance = 0;
+        int currDistance = 0;
+        int jumps = 0;
+        
+        for(int i=0;i<nums.size()-1;i++) {
+            
+            if(i + nums[i] > maxDistance) {
+                maxDistance = i + nums[i];
+            }
+            
+            if(i==currDistance) {
+                jumps++;
+                currDistance = maxDistance;
+            }
+        }
+        
+        return jumps;
+    }
+};
