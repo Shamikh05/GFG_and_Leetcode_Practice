@@ -1,0 +1,13 @@
+int setBits(int N) {
+        // Write Your Code here
+        
+        int ans = 0;
+        
+        while(N) {
+            
+            ans += N & 1;
+            N = N>>1;
+        }
+        
+        return ans;
+}
