@@ -1,0 +1,30 @@
+int dp[101][101];
+
+class Solution {
+public:
+    int compute(int i, int j, vector<int> &colors) {
+        
+        int result = 0;
+    
+        if(i>=j)
+            return 0;
+        
+        if(dp[i][j] != -1)
+            return dp[i][j];
+        
+        if(colors[i]!=colors[j])
+            result = (j - i);
+        
+        return dp[i][j] = max(result,max(compute(i+1,j,colors), compute(i,j-1,colors)));
+    }
+    
+    int maxDistance(vector<int>& colors) {
+        
+        memset(dp,-1,sizeof(dp));
+        
+        int n = colors.size();
+        
+        return compute(0,n-1,colors);
+        
+    }
+};
