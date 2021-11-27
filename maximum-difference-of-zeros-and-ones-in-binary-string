@@ -1,0 +1,23 @@
+int maxSubstring(string S) {
+	    // Your code goes here
+	    
+	    int sum = 0;
+	    int ans = INT_MIN;
+	    
+	    for(int i=0;i<S.length();i++) {
+	        
+	        if(S[i]=='0') {
+	            sum++;   
+	        }
+	        else if(S[i]=='1') {
+	            sum--;   
+	        }
+	            
+	        ans = max(ans,sum);
+	        
+	        if(sum < 0)
+	            sum = 0;
+	    }
+	    
+      return ans;
+}
