@@ -1,0 +1,38 @@
+int minimumCost(int cost[], int N, int W) { 
+        // Your code goes here
+        
+        vector<int> dp(W+1,0);
+        
+        dp[1] = cost[0];
+        
+        int val,s,e;
+        
+        for(int i=2;i<=W;i++) {
+            
+            e = i - 1;
+            s = 1;
+            
+            val = INT_MAX;
+            
+            while(s<=e) {
+                
+                
+                if(dp[s]!=-1 and dp[e]!=-1) {
+                    val = min(val,dp[s]+dp[e]);
+                }
+                
+                s++;
+                e--;
+            }
+            
+            if(i-1<N)
+                val = min(val,cost[i-1]);
+            
+            if(val==INT_MAX)
+                dp[i] = -1;
+            else
+                dp[i] = val;
+        }
+        
+        return dp[W];
+}
