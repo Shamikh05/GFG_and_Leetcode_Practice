@@ -1,0 +1,23 @@
+void compute(vector<int> &ans, Node *root, int level) {
+
+    if(root==NULL)
+        return;
+        
+    if(level==ans.size())
+        ans.push_back(root->data);
+    
+    compute(ans, root->left, level+1);
+    compute(ans, root->right, level+1);
+    
+    
+}
+
+vector<int> leftView(Node *root) {
+   // Your code here
+   
+   vector<int> ans;
+   
+   compute(ans,root,0);
+   
+   return ans;
+}
