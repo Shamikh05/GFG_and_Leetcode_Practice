@@ -12,17 +12,13 @@ public:
         
         ListNode* p = node->next;
         
-        while(p->next) {
-            
-            node->val = p->val;
-            
-            node = node->next;
-            p = p->next;
-        }
-        
         node->val = p->val;
         
-        node->next = NULL;
+        node->next = p->next;
+        
+        p->next = NULL;
+        
+        delete p;
         
     }
 };
