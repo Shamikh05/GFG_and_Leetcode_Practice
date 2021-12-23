@@ -1,0 +1,60 @@
+class Solution {
+public:
+    string reverseWords(string s) {
+        
+        string str;
+        string ans;
+        
+        reverse(s.begin(),s.end());
+        
+        int i = 0;
+        int j = 0;
+        
+        int n = s.size();
+        
+        while(s[i]==' ') i++;
+        
+        j = i;
+        
+        //cout << i << " " << j << endl;
+        //cout << s.substr(i,j) << " " << n << endl;
+        
+        while(i<n and j<n) {
+            
+            if(s[j]==' ') {
+                
+                reverse(s.begin()+i,s.begin()+j);
+                
+                str = s.substr(i,j-i);
+                
+                ans.append(str);
+                
+                ans.push_back(' ');
+                
+                i = j + 1;
+                
+                while(s[i]==' ') {
+                    i++;
+                }
+                
+                j = i;
+                
+                str.clear();
+            }
+            else
+                j++;
+        }
+        
+        if(s[j-1] != ' ') {
+            reverse(s.begin()+i,s.begin()+j);
+            str = s.substr(i,j-i);
+            ans.append(str);
+        }
+        else {
+            ans.erase(ans.end()-1);  
+        }
+        
+        return ans;    
+        
+    }
+};
