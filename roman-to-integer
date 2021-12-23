@@ -1,0 +1,89 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        
+        int ans = 0;
+        
+        int n = s.size();
+        
+        bool flagI = 1;
+        bool flagX = 1;
+        bool flagC = 1;
+        
+        for(int i=n-1;i>=0;i--) {
+            
+            if(s[i]=='I') {
+                
+                if(flagI) {
+                    ans += 1;
+                }
+                else {
+                    ans -= 1;
+                }
+                
+                flagI = 1;
+                flagX = 1;
+                flagC = 1;
+                
+            }
+            else if(s[i]=='V') {
+                ans += 5;
+                flagI = 0;
+                
+                flagX = 1;
+                flagC = 1;
+            }
+            else if(s[i]=='X') {
+                
+                if(flagX) {
+                    ans += 10;  
+                }
+                else {
+                    ans -= 10;   
+                }
+                
+                flagI = 0;
+                flagX = 1;
+                flagC = 1;
+            }
+            else if(s[i]=='L') {
+                ans += 50;
+                flagX = 0;
+                
+                flagI = 1;
+                flagC = 1;
+            }
+            else if(s[i]=='C') {
+                
+                if(flagC) {
+                   ans += 100; 
+                }
+                else {
+                    ans -= 100;
+                }
+                
+                flagX = 0;
+                
+                flagI = 1;
+                flagC = 1;
+            }
+            else if(s[i]=='D') {
+                ans += 500;
+                flagC = 0;
+                
+                flagX = 1;
+                flagI = 1;
+            }
+            else if(s[i]=='M') {
+                ans += 1000;
+                flagC = 0;
+                
+                flagI = 1;
+                flagX = 1;
+            }
+        }
+        
+        return ans;
+        
+    }
+};
