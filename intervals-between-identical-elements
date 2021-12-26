@@ -1,0 +1,36 @@
+class Solution {
+public:
+    
+    #define ll long long
+    
+    vector<ll> getDistances(vector<int>& arr) {
+        
+        ll n = arr.size();
+        
+        vector<ll> ans(n,0);
+        
+        unordered_map<ll, pair<ll,ll> > left;
+        
+        for(ll i=0;i<n;++i) {
+            
+            ans[i] = (left[arr[i]].first * i) - left[arr[i]].second;
+            
+            left[arr[i]].first += 1;
+            left[arr[i]].second += i;
+            
+        }
+        
+        unordered_map<ll, pair<ll,ll> > right;
+        
+        for(ll i=n-1;i>=0;--i) {
+            
+            ans[i] += right[arr[i]].second - (right[arr[i]].first * i);
+            
+            right[arr[i]].first += 1; 
+            right[arr[i]].second += i; 
+        }
+        
+        return ans;
+        
+    }
+};
