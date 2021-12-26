@@ -1,0 +1,61 @@
+class Solution {
+public:
+    vector<int> executeInstructions(int n, vector<int>& startPos, string s) {
+        
+        vector<int> ans;
+        
+        for(int i=0;i<s.size();i++) {
+            
+            int res = 0;
+            
+            int startx = startPos[0];
+            int starty = startPos[1];
+            
+            for(int j=i;j<s.size();j++) {
+                
+                if(s[j]=='L') {
+                    
+                    if(starty-1 >= 0) {
+                        res++;
+                        starty = starty - 1;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else if(s[j]=='R') {
+                    if(starty+1 <= n-1) {
+                        res++;
+                        starty = starty + 1;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else if(s[j]=='U') {
+                    if(startx-1 >= 0) {
+                        res++;
+                        startx = startx - 1;
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else {
+                    if(startx+1 <= n-1) {
+                        res++;
+                        startx = startx + 1;
+                    }
+                    else {
+                        break;
+                    }
+                }
+            }
+            
+            ans.push_back(res);
+        }
+        
+        return ans;
+        
+    }
+};
