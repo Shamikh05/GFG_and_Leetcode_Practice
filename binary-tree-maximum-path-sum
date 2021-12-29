@@ -1,0 +1,41 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+    int compute(TreeNode* root, int &maxPath) {
+        
+        // if there is no further subtrees then we will take that subtree path as 0.
+        if(root==NULL) return 0;
+        
+        // we will have to traverse in each and every subtrees to find the maximum path
+        int left = compute(root->left, maxPath);
+        int right = compute(root->right, maxPath);
+        
+        // for avoiding subtree which is giving -ve value as it will reduce the answer for our maximum path
+        if(left < 0) left = 0;
+        if(right < 0) right = 0;
+        
+        // answer is getting stored in maxPath variable
+        maxPath = max(maxPath, root->val + left + right);
+        
+        // out of left and right subtrees, we have to take only one as we can't go to a node twice, so we will           // take only that subtree which is giving us the largest value.
+        return max(left, right) + root->val;
+    }
+public:
+    int maxPathSum(TreeNode* root) {
+        
+        int ans = INT_MIN;
+        
+        compute(root, ans);
+        
+        return ans;
+    }
+};
