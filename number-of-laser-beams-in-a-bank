@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int numberOfBeams(vector<string>& bank) {
+        
+        int m = bank.size();
+        int n = bank[0].size();
+        
+        vector<int> v(m,0);
+        
+        for(int i=0;i<m;i++) {
+            
+            for(int j=0;j<n;j++) {
+                
+                if(bank[i][j]=='1')
+                    v[i]++;
+                
+            }
+            
+        }
+        
+        int ans = 0;
+        
+        int curr = 0;
+        
+        for(int i=0;i<m;i++) {
+            
+            if(curr > 0 and v[i]!=0) {
+                
+                ans += (curr * v[i]);
+                curr = v[i];
+            }
+            else if(curr==0 and v[i]!=0) {
+                curr = v[i];
+            }
+            else if(v[i]==0) {
+                ans += (curr * v[i]);
+            }
+        }
+        
+        return ans;
+        
+    }
+};
