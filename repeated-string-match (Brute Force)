@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int repeatedStringMatch(string a, string b) {
+        
+        string s(a);
+        
+        int repeat = 1;
+        
+        while(s.size() < b.size()) {
+            
+            s.append(a);
+            repeat++;
+        }
+        
+        if(s.find(b) != string::npos)
+            return repeat;
+        
+        s.append(a);
+        repeat++;
+        
+        if(s.find(b) != string::npos)
+            return repeat;
+        
+        return -1;
+    }
+};
