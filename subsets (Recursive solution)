@@ -1,0 +1,28 @@
+class Solution {
+    void compute(int i, vector<int> &nums, vector<int> &temp, vector<vector<int>> &result) {
+        
+        if(i==nums.size()) {
+            result.push_back(temp);
+        }
+        
+        else {
+            temp.push_back(nums[i]);
+            compute(i+1,nums,temp,result);
+        
+            temp.pop_back();
+            compute(i+1,nums,temp,result);
+        }
+        
+    }
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        
+        vector<int> temp;
+        vector<vector<int> > result;
+        
+        compute(0,nums,temp,result);
+        
+        return result;
+        
+    }
+};
