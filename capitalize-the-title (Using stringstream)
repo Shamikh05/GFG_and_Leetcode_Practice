@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string capitalizeTitle(string title) {
+        
+        int n = title.size();
+        
+        transform(title.begin(),title.end(),title.begin(),::tolower);
+        
+        stringstream ss(title);
+        
+        string word, ans;
+        
+        while(ss>>word) {
+            
+            if(word.size() > 2) word[0] = toupper(word[0]);
+            
+            ans += word + " ";
+        }
+        
+        ans.pop_back();
+        
+        return ans;
+        
+    }
+};
