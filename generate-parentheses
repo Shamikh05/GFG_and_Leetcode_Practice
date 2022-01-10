@@ -1,0 +1,31 @@
+class Solution {
+    void compute(int open, int close, int n, string temp, vector<string> &ans) {
+        
+        if(open==n and close==n) {
+            ans.push_back(temp);
+            return;
+        }
+        
+        if(close < open and close < n) {
+            temp += ")";
+            compute(open, close+1, n, temp, ans);
+            temp.pop_back();
+        }
+        
+        if(open < n) {
+            temp += "(";
+            compute(open+1, close, n, temp, ans);  
+        }
+        
+    }
+public:
+    vector<string> generateParenthesis(int n) {
+        
+        vector<string> ans;
+        
+        compute(0,0,n,"",ans);
+        
+        return ans;
+        
+    }
+};
