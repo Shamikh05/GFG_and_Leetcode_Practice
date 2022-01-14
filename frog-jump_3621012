@@ -1,0 +1,21 @@
+int frogJump(int n, vector<int> &heights) {
+    // Write your code here.
+    
+    int optimalTwoStep = 0;
+    int optimalOneStep = abs(heights[1] - heights[0]);
+    
+    int ans = optimalOneStep;
+    
+    for(int i=2;i<n;++i) {
+        
+        int oneStep = optimalOneStep + abs(heights[i]-heights[i-1]);
+        int twoStep = optimalTwoStep + abs(heights[i]-heights[i-2]);
+        
+        ans = min(oneStep, twoStep);
+        
+        optimalTwoStep = optimalOneStep;
+        optimalOneStep = ans;
+    }
+    
+    return ans;
+}
