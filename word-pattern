@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        
+        int n = pattern.size();
+        
+        stringstream ss(s);
+        
+        string word;
+        
+        unordered_map<char, int> mp1;
+        unordered_map<string, int> mp2;
+
+        
+        int i = 0;
+        
+        int count = 0;  // for counting number of words (for corner case)
+        
+        
+        while(ss >> word) {
+            
+            if(i<n and mp1[pattern[i]] != mp2[word]) {
+                return false;
+            }
+            
+            if(i<n) {
+                mp1[pattern[i]] = mp2[word] = i+1;
+                i++;    
+            }
+            
+            count++;
+        }
+        
+        if(n!=count)
+            return false;
+        
+        return true;
+        
+    }
+};
