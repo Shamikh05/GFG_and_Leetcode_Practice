@@ -1,0 +1,65 @@
+class Solution {
+    bool check(vector<int>& piles, int k, int h) {
+        
+        int n = piles.size();
+        
+        int hour = 0;
+        
+        for(int i=0;i<n;++i) {
+            
+            if(piles[i] > k) {
+                
+                hour += piles[i] / k;
+                
+                if(piles[i] % k) {
+                    hour++;
+                }
+            
+            }
+            else
+                hour++;
+        }
+        
+        if(hour<=h) 
+            return true;
+        
+        return false;
+    }
+    
+    int compute(int low, int high, vector<int>& piles, int h) {
+        
+        int ans = high;
+        
+        while(low <= high) {
+            
+            int mid = (low + high)/2;
+        
+            bool satisfy = check(piles,mid,h);
+            
+            if(satisfy) {
+                ans = min(ans,mid);
+                high = mid - 1;
+            }
+            else {
+                low = mid + 1;
+            }   
+        }
+        
+        return ans;
+    }
+    
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+        
+        int n = piles.size();
+        
+        int maxVal = INT_MIN;
+        
+        
+        for(int i=0;i<n;i++) {
+            maxVal = max(maxVal,piles[i]);
+        }
+        
+        return compute(1,maxVal,piles,h);
+    }
+};
