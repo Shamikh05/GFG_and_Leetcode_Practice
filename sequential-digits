@@ -1,0 +1,59 @@
+class Solution {
+public:
+    vector<int> sequentialDigits(int low, int high) {
+        
+        vector<int> digits;
+        
+        for(int i=1;i<=9;++i)
+            digits.push_back(i);
+        
+        int n1 = 0;
+        
+        int temp = low;
+        
+        while(temp) {
+            
+            temp /= 10;
+            n1++;
+        }
+        
+        int n2 = 0;
+        
+        temp = high;
+        
+        while(temp) {
+            
+            temp /= 10;
+            n2++;
+        }
+        
+        vector<int> ans;
+        
+        for(int i=n1;i<=n2;++i) {
+            
+            int s = 1;
+            int e = i;
+            
+            while(e <= 9) {
+                
+                int num = 0;
+                int k = 1;
+                
+                for(int j=e;j>=s;j--) {
+                    num += j*k;
+                    k *= 10;
+                }
+                
+                if(num >= low and num <= high)
+                    ans.push_back(num);
+                
+                s++;
+                e++;
+                
+            }
+        }
+        
+        return ans;
+        
+    }
+};
