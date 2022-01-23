@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int countElements(vector<int>& nums) {
+        
+        if(nums.size()==1 or nums.size()==2)
+            return 0;
+        
+        int smallest = INT_MAX;
+        int largest = INT_MIN;
+        
+        for(int i : nums) {
+            smallest = min(smallest,i);
+            largest = max(largest,i);
+        }
+        
+        int duplicates = 0;
+        
+        for(int i : nums) {
+            
+            if(i==smallest or i==largest)
+                duplicates++;
+        }
+        
+        return nums.size() - duplicates;
+        
+    }
+};
