@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int numberOfArrays(vector<int>& differences, int lower, int upper) {
+        
+        int n = differences.size();
+        
+        long maxSeq = 0;
+        long minSeq = 0;
+        
+        long nextElementOfSeq = 0;
+        
+        for(int i : differences) {
+            
+            nextElementOfSeq += i;
+            
+            minSeq = min(minSeq,nextElementOfSeq);
+            maxSeq = max(maxSeq,nextElementOfSeq);
+        }
+        
+        return max(0L, (minSeq - lower) + (upper - maxSeq) + 1);
+    }
+};
