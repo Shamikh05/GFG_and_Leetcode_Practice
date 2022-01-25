@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int addRungs(vector<int>& rungs, int dist) {
+        
+        int n = rungs.size();
+        
+        int ans = 0;
+        
+        int prev = 0;
+        
+        for(int i=0;i<n;++i) {
+            
+            int target = rungs[i] - prev;
+            
+            if(target > dist) {
+                
+                if(target % dist == 0) 
+                    ans += (target/dist) - 1;
+                else
+                    ans += (target/dist);
+                    
+            }
+            
+            prev = rungs[i];
+        }
+        
+        return ans;
+    }
+};
