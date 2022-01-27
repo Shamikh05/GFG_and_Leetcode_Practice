@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        
+        int n = nums.size();
+        
+        if(n==0 || n==1)
+            return n;
+        
+        int ans = 0;
+        
+        int t = n;
+        
+        for(int i=1;i<t;++i) {
+            
+            if(nums[i]==nums[i-1]) {
+                nums.erase(nums.begin()+i);
+                i--;
+                t--;
+                ans++;
+            }
+        }
+        
+        ans = n - ans;
+        
+        return ans;
+    }
+};
