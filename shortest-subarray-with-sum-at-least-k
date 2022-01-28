@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int shortestSubarray(vector<int>& nums, int k) {
+        
+        long long n = nums.size();
+        
+        deque<pair<int,int>> dq;
+        
+        long long i = 0;
+        
+        long long sum = 0;
+        long long ans = INT_MAX;
+        
+        while(i<n) {
+            
+            sum += nums[i];
+            
+            if(sum >= k) {
+                ans = min(ans,i+1);
+            }
+            
+            pair<long long, long long> curr = {INT_MIN,INT_MIN};
+            
+            while(!dq.empty() and (sum - dq.front().second) >= k) {
+                curr = dq.front();
+                dq.pop_front();
+            }
+            
+            if(curr.second != INT_MIN)
+                ans = min(ans,i-curr.first);
+            
+            while(!dq.empty() and sum <= dq.back().second) {
+                dq.pop_back();
+            }
+            
+            dq.push_back({i,sum});
+            
+            i++;
+        }
+        
+        if(ans==INT_MAX)
+            return -1;
+        
+        return ans;
+    }
+};
