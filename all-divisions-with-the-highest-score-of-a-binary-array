@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int> maxScoreIndices(vector<int>& nums) {
+        
+        int n = nums.size();
+        
+        vector<long long> zeroes(n,0);
+        vector<long long> ones(n,0);
+        
+        if(nums[0]==0)
+            zeroes[0] = 1;
+        
+        for(int i=1;i<n;++i) {
+            
+            if(nums[i]==0)
+                zeroes[i] = zeroes[i-1] + 1;
+            else
+                zeroes[i] = zeroes[i-1];
+        }
+        
+
+        
+        ones[n-1] = nums[n-1];
+        
+        for(int i=n-2;i>=0;i--) {
+            
+            if(nums[i]==1)
+                ones[i] = ones[i+1] + 1;
+            else
+                ones[i] = ones[i+1];
+        }
+        
+        vector<long long> finalData(n+1,0);
+        
+        finalData[0] = ones[0];
+        finalData[n] = zeroes[n-1];
+        
+        long long maxVal = max(finalData[0],finalData[n]); 
+        
+        for(int i=1;i<n;++i) {
+            finalData[i] = zeroes[i-1] + ones[i];
+            maxVal = max(maxVal,finalData[i]);
+        }
+        
+        vector<int> ans;
+        
+        for(int i=0;i<=n;++i) {
+            
+            if(finalData[i]==maxVal)
+                ans.push_back(i);
+        }
+        
+        return ans;
+        
+    }
+};
