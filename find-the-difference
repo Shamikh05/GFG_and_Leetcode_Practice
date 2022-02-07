@@ -1,0 +1,18 @@
+class Solution {
+public:
+    char findTheDifference(string s, string t) {
+        
+        int n = s.size();
+        
+        int ans = 0;
+        
+        for(int i=0;i<n;++i) {
+            ans ^= (s[i] - 'a');
+            ans ^= (t[i] - 'a');
+        }
+        
+        ans ^= (t[n] - 'a');
+        
+        return ans + 'a';
+    }
+};
