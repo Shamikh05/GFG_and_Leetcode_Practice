@@ -1,0 +1,55 @@
+class Solution {
+private:
+    int binSearch(int s, int e, int target, vector<int> &nums) {
+        
+        if(target==nums[s])
+            return s;
+        
+        if(target==nums[e])
+            return e;
+        
+        while(s <= e) {
+            
+            int mid = (s + e) / 2;
+            
+            if(target==nums[mid])
+                return mid;
+            
+            else if(target < nums[mid])
+                e = mid - 1;
+            
+            else
+                s = mid + 1;
+        }
+        
+        return -1;
+    }   
+public:
+    int search(vector<int>& nums, int target) {
+        
+        int n = nums.size();
+        
+        if(n==1)
+            return nums[0] == target ? 0 : -1;
+        
+        int s = 0;
+        
+        for(int i=1;i<n;++i) {
+            
+            if(nums[i] < nums[i-1]) {
+                s = i;
+            }
+        }
+        
+        int ans = -1;
+        
+        if(target >= nums[s] and target <= nums[n-1]) {
+            ans = binSearch(s,n-1,target,nums);
+        }
+        else if(target >= nums[0] and s > 0 and target <= nums[s-1]) {
+            ans = binSearch(0,s-1,target,nums);
+        }
+        
+        return ans;
+    }
+};
