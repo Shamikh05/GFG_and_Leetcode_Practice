@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int addDigits(int num) {
+        
+        int dig;
+        
+        while(num > 9) {
+            
+            int sum = 0;
+            
+            while(num) {
+                
+                dig = num % 10;
+                sum += dig;
+                
+                num /= 10;
+            }
+            
+            num = sum;
+        }
+        
+        return num;
+        
+    }
+};
