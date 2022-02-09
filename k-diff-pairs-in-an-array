@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int findPairs(vector<int>& nums, int k) {
+        
+        int n = nums.size();
+        
+        if(n==1)
+            return 0;
+        
+        map<int, int> mp;
+        
+        int ans = 0;
+        
+        for(int i=0;i<n;++i) {
+            
+            if(k==0) {
+                mp[nums[i]]++;
+                continue;
+            }
+            
+            if(mp.find(nums[i]) != mp.end()) {
+                continue;
+            }
+           
+            int pair1 = nums[i] - k;
+           
+            int pair2 = nums[i] + k;
+           
+            if(mp.find(pair1) != mp.end())
+                ans++;
+           
+            if(mp.find(pair2) != mp.end())
+                ans++;
+           
+            mp[nums[i]] = 1;
+        }
+        
+        if(k==0) {
+            
+            for(auto it : mp) {
+                
+                if(it.second > 1)
+                    ans++;
+            }
+        }
+        
+        return ans;
+    }
+};
