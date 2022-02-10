@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        
+        int n = nums.size(); 
+        
+        vector<int> preSum(n,0);
+            
+        preSum[0] = nums[0];
+        
+        for(int i=1;i<n;++i) {
+            preSum[i] = preSum[i-1] + nums[i];
+        }
+        
+        map<int,int> mp;
+        
+        int ans = 0;
+        
+        for(int i=n-1;i>=0;--i) {
+            
+            int target = preSum[i] + k;
+            
+            if(preSum[i]==k)
+                ans++;
+            
+            if(mp.find(target) != mp.end())
+                ans += mp[target];
+            
+            mp[preSum[i]]++;
+            
+        }
+        
+        return ans;
+    }
+};
