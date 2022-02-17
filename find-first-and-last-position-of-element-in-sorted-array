@@ -1,0 +1,40 @@
+class Solution {
+    int binSearch(int low, int high, int target, vector<int>& nums) {
+        
+        while(low <= high) {
+            
+            int mid = low + ((high - low) / 2);
+            
+            if(target > nums[mid]) 
+                low = mid + 1;
+            else
+                high = mid - 1;
+        }
+        
+        return low;
+    }
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        
+        int n = nums.size();
+        
+        vector<int> ans(2,-1);
+        
+        if(n==0)
+            return ans;
+        
+        int low = 0;
+        int high = n - 1;
+        
+        int idx1 = binSearch(0,n-1,target,nums);
+        
+        if(idx1 < 0 or idx1 > n-1 or nums[idx1]!=target)
+            return ans;
+        
+        ans[0] = idx1;
+        
+        ans[1] = binSearch(0,n-1,target+1,nums) - 1;
+        
+        return ans;
+    }
+};
