@@ -1,0 +1,31 @@
+class Solution {
+    static bool comp(vector<int> &a, vector<int> &b) {
+        return a[0] < b[0];
+    }
+public:
+    int removeCoveredIntervals(vector<vector<int>>& intervals) {
+        
+        int n = intervals.size();
+        
+        sort(intervals.begin(), intervals.end(), comp);
+        
+        int left = intervals[0][0];
+        int right = intervals[0][1];
+        
+        int ans = 1;
+        
+        for(int i=1;i<n;++i) {
+            
+            if(intervals[i][0] > left and intervals[i][1] > right) {
+                ans++;
+            }
+            
+            if(intervals[i][1] > right) {
+                left = intervals[i][0];
+                right = intervals[i][1];
+            }
+        }
+        
+        return ans;
+    }
+};
