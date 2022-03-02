@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int numSquares(int n) {
+        
+        vector<int> dp(n+1,0);
+        
+        for(int i=1;i<=n;++i) {
+            
+            int inp = INT_MAX;
+            
+            int j = 1;
+            
+            while(j*j <= i) {
+                
+                inp = min(inp, dp[i - (j*j)]);
+                
+                j++;
+            }
+            
+            dp[i] = 1 + inp;
+        }
+        
+        int ans = dp[n];
+        
+        return ans;
+    }
+};
