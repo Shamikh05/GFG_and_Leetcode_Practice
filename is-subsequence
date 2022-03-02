@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool isSubsequence(string s, string t) {
+        
+        int s_size = s.size();
+        int t_size = t.size();
+        
+        int ptr1 = 0;
+        int ptr2 = 0;
+        
+        while(ptr1 < s_size and ptr2 < t_size) {
+            
+            if(s[ptr1] == t[ptr2]) {
+                ptr1++;
+                ptr2++;
+            }
+            else
+                ptr2++;
+        }
+        
+        if(ptr1==s_size)
+            return true;
+        
+        return false;
+        
+    }
+};
