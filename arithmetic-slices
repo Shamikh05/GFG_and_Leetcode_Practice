@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        
+        int n = nums.size();
+        
+        if(n==1) 
+            return 0;
+        
+        int count = 0;
+        int prevDiff = 0;
+        
+        int ans = 0;
+        
+        for(int i=1;i<n;++i) {
+            
+            int currDiff = nums[i] - nums[i-1];
+            
+            if(prevDiff != currDiff) {
+                
+                if(count > 1) {
+                    
+                    long long numerator = 1;
+                    
+                    for(int j=(count-2+1);j<=count;++j) {
+                        numerator *= j;
+                    }
+                    
+                    ans += (numerator / 2);
+                }
+                
+                count = 0;
+            }
+            
+            count++;
+            
+            prevDiff = currDiff;
+        }
+        
+        if(count > 1) {
+                    
+            long long numerator = 1;
+                    
+            for(int j=(count-2+1);j<=count;++j) {
+                numerator *= j;
+            }
+                    
+            ans += (numerator / 2);
+        }
+        
+        return ans;
+    }
+};
