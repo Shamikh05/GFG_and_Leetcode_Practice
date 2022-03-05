@@ -1,0 +1,44 @@
+class Solution {
+    static bool comp(pair<int,int> &a, pair<int,int> &b) {
+        return a.first < b.first;
+    }
+public:
+    vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums) {
+        
+        int n = nums.size();
+        
+        vector<pair<int, int> > newNums(n); 
+        
+        for(int i=0;i<n;++i) {
+            
+            string temp = to_string(nums[i]);
+            string inp = "";
+            
+            for(int j=0;j<temp.size();++j) {
+                inp += to_string(mapping[temp[j]-'0']);
+            }
+            
+            stringstream ss;
+            
+            int num;
+            
+            ss << inp;
+            
+            ss >> num;
+            
+            newNums[i].first = num;
+            newNums[i].second = nums[i];
+        }
+        
+        sort(newNums.begin(), newNums.end(), comp);
+        
+        vector<int> ans;
+        
+        for(int i=0;i<n;++i) {
+            ans.push_back(newNums[i].second);
+            //cout << newNums[i].first << endl;
+        }
+        
+        return ans;
+    }
+};
