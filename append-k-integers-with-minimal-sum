@@ -1,0 +1,54 @@
+class Solution {
+public:
+    long long minimalKSum(vector<int>& nums, int k) {
+        
+        long long n = nums.size();
+        
+        map<long long, long long> mp;
+        
+        long long ans = 0;
+        
+        long long start = 1;
+        
+        for(int num : nums)
+            mp[num]++;
+        
+        long long temp;
+        
+        for(auto it : mp) {
+            
+            long long x = it.first;
+            
+            long long completeSum = (x * (x-1))/2;
+            long long extraSum = (start * (start-1))/2;
+            
+            ans += (completeSum - extraSum);
+            
+            k -= (x - start);
+            
+            if(k < 0) {
+                temp = x - 1;
+                break;
+            }
+            
+            start = x + 1;
+        }
+        
+        if(k > 0) {
+            long long x = k + start;
+            
+            long long completeSum = (x * (x-1))/2;
+            long long extraSum = (start * (start-1))/2;
+            
+            ans += (completeSum - extraSum);
+        }
+        
+        while(k < 0) {
+            ans -= temp;
+            temp--;
+            k++;
+        }
+        
+        return ans;
+    }
+};
