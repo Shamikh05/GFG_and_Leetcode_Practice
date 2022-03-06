@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int countOrders(int n) {
+        
+        long long lastPoss = 2*n - 1;
+        
+        long long possibilities = 1;
+        
+        for(long long i=1;i<=lastPoss;i+=2) {
+            possibilities *= i;
+            possibilities %= 1000000007;
+        }
+        
+        long long factNum = 1;
+        
+        for(long long i=1;i<=n;++i) {
+            factNum *= i;
+            factNum %= 1000000007;
+        }
+        
+        long long ans = (factNum * possibilities) % 1000000007;
+        
+        return ans;
+    }
+};
