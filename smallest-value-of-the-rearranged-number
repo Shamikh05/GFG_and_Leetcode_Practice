@@ -1,0 +1,55 @@
+# define ll long long
+class Solution {
+public:
+    long long smallestNumber(long long num) {
+        
+        if(num==0)
+            return 0;
+        
+        vector<int> numArr;
+        
+        ll temp = abs(num);
+        
+        while(temp) {
+            
+            int digit = temp % 10;
+            numArr.push_back(digit);
+            
+            temp /= 10;
+        }
+        
+        sort(numArr.begin(), numArr.end());
+        
+        ll n = numArr.size();
+        
+        ll ans = 0;
+        
+        if(num > 0) {
+            
+            ll zeroes = 0;
+            
+            for(ll i=0;i<n;++i) {
+                
+                if(numArr[i]==0) {
+                    zeroes++;
+                }
+                else {
+                    
+                    ans = (ans * 10) + numArr[i];
+                    
+                    while(zeroes) {
+                        ans *= 10;
+                        zeroes--;
+                    }
+                }
+            }
+        }
+        else {
+            for(ll i=n-1;i>=0;--i) {
+                ans = (ans * 10) + numArr[i];
+            }
+        }
+        
+        return num > 0 ? ans : -1*ans; 
+    }
+};
