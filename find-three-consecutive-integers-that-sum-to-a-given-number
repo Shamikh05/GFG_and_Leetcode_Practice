@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<long long> sumOfThree(long long num) {
+        
+        vector<long long> ans;
+        
+        if(num % 3 != 0) 
+            return ans;
+        
+        long long secondNum = num / 3;
+        
+        long long firstNum = secondNum - 1;
+        long long thirdNum = secondNum + 1;
+        
+        ans.push_back(firstNum);
+        ans.push_back(secondNum);
+        ans.push_back(thirdNum);
+        
+        return ans;
+    }
+};
