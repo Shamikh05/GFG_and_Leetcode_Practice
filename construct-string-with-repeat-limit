@@ -1,0 +1,56 @@
+class Solution {
+public:
+    string repeatLimitedString(string s, int repeatLimit) {
+        
+        string ans = "";
+        
+        vector<int> freq(26,0);
+        
+        priority_queue<int> pq;
+        
+        for(char ch : s) {
+            
+            if(freq[ch - 'a']==0)
+                pq.push(ch - 'a');
+                
+            freq[ch - 'a']++;
+        }
+        
+        
+        while(!pq.empty()) {
+            
+            int t = pq.top();
+            
+            int count = 0;
+            
+            while(freq[t] > 0 and count < repeatLimit) {
+                
+                char ch = 'a' + t;
+                ans.push_back(ch);
+                
+                freq[t]--;
+                count++;
+            }
+            
+            pq.pop();
+            
+            if(!pq.empty() and freq[t] > 0) {
+                
+                int temp = pq.top();
+                
+                char ch = 'a' + temp;
+                ans.push_back(ch);
+                
+                freq[temp]--;
+                
+                if(freq[temp]==0)
+                    pq.pop();
+                
+                pq.push(t);
+            }
+        }
+        
+        return ans;
+        
+    }
+};
