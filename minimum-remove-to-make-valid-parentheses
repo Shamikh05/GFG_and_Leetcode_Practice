@@ -1,0 +1,41 @@
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        
+        int n = s.size();
+        
+        stack<int> st;
+        vector<int> rem(n,0); 
+        
+        for(int i=0;i<n;++i) {
+            
+            if(s[i]=='(') {
+                st.push(i);
+            }
+            else if(s[i]==')') {
+                
+                if(!st.empty())
+                    st.pop();
+                else 
+                    rem[i] = 1;
+            }
+        }
+        
+        while(!st.empty()) {
+            
+            int t = st.top();
+            rem[t] = 1;
+            st.pop();
+        }
+        
+        string ans = "";
+        
+        for(int i=0;i<n;++i) {
+            if(rem[i]==0) {
+                ans += s[i];
+            }
+        }
+        
+        return ans;
+    }
+};
