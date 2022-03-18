@@ -1,0 +1,26 @@
+class Solution {
+    void compute(int p, vector<int> &nums, int n, vector<vector<int> > &ans) {
+        
+        if(p==n) {
+            ans.push_back(nums);
+            return;
+        }
+        
+        for(int i=p;i<n;++i) {
+            swap(nums[p],nums[i]);
+            compute(p+1, nums, n, ans);
+            swap(nums[p],nums[i]);
+        }
+    }
+public:
+    vector<vector<int>> permute(vector<int>& nums) {
+        
+        int n = nums.size();
+        
+        vector<vector<int> > ans;
+        
+        compute(0, nums, n, ans);
+        
+        return ans;
+    }
+};
