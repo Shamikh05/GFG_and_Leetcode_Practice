@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int countCollisions(string directions) {
+        
+        int n = directions.size();
+        
+        bool flag = false;
+        
+        long long ans = 0;
+        
+        for(int i=0;i<n-1;++i) {
+            
+            if(directions[i]=='R' and directions[i+1]=='L') {
+                ans += 2;
+                flag = true;
+                i++;
+            }
+            else if((directions[i]=='R' and directions[i+1]=='S') or (directions[i]=='S' and directions[i+1]=='L')) {
+                ans++;
+                flag = true;
+                i++;
+            }
+            else
+                flag = false;
+            
+            
+            if(flag) {
+                
+                for(int j=i+1;j<n;++j) {
+                    if(directions[j]=='L') ans++;
+                    else break;
+                }
+                
+                for(int j=i-2;j>=0;--j) {
+                    if(directions[j]=='R') ans++;
+                    else break;
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
