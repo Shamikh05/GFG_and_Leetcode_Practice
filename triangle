@@ -1,0 +1,33 @@
+class Solution {
+    int calcMinPath(int i, int j, vector<vector<int> > &triangle, int n, vector<vector<int> > &dp) {
+        
+        if(i==0 and j==0) 
+            return triangle[0][0];
+        
+        if(j<0 or j>i or i<0) 
+            return INT_MAX;
+        
+        if(dp[i][j] != -1) 
+            return dp[i][j];
+        
+        int up = calcMinPath(i-1, j, triangle, n, dp);
+        int upAdj = calcMinPath(i-1, j-1, triangle, n, dp);
+        
+        return dp[i][j] = triangle[i][j] + min(up, upAdj);
+    }
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        
+        int n = triangle.size();
+        
+        vector<vector<int> > dp(n, vector<int>(n, -1));
+        
+        int ans = INT_MAX;
+        
+        for(int i=0;i<n;++i) {
+            ans = min(ans, calcMinPath(n-1, n-i-1, triangle, n, dp));
+        }
+        
+        return ans;
+    }
+};
