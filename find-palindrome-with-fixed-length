@@ -1,0 +1,38 @@
+# define ll long long
+
+class Solution {
+public:
+    vector<long long> kthPalindrome(vector<int>& queries, int intLength) {
+        
+        ll n = queries.size();
+        
+        vector<ll> ans(n,0);
+        
+        ll idx = (intLength + 1) / 2;  
+        
+        ll minNum = pow(10, ((intLength + 1) / 2) - 1);
+        ll maxNum = pow(10, (intLength + 1) / 2);
+        
+        for(ll i=0;i<n;++i) {
+            
+            string firstHalf = to_string(minNum + queries[i] - 1);
+            
+            string revHalf = firstHalf;
+            
+            if(intLength % 2 != 0) 
+                revHalf.pop_back();
+            
+            reverse(revHalf.begin(), revHalf.end());
+            
+            unsigned ll firstRes = stoull(firstHalf);
+            
+            firstHalf += revHalf;
+            
+            unsigned ll res = stoull(firstHalf);
+            
+            ans[i] = firstRes >= maxNum ? -1 : res;
+        }
+        
+        return ans;
+    }
+};
