@@ -1,0 +1,40 @@
+class Solution {
+    static bool comp(pair<int, int> p1, pair<int, int> p2) {
+        
+        if(p1.first < p2.first) 
+            return true;
+        else if(p1.first==p2.first and p1.second < p2.second) 
+            return true;
+        
+        return false;
+    }
+public:
+    vector<int> kWeakestRows(vector<vector<int>>& mat, int k) {
+        
+        int m = mat.size();
+        int n = mat[0].size();
+        
+        vector<pair<int, int> > v;
+        
+        for(int i=0;i<m;++i) {
+            
+            int count = 0; 
+            
+            for(int j=0;j<n;++j) {
+                count += mat[i][j];
+            }
+            
+            v.push_back({count,i});
+        }
+        
+        sort(v.begin(),v.end(),comp);
+        
+        vector<int> ans(k,0);
+        
+        for(int i=0;i<k;++i) {
+            ans[i] = v[i].second;
+        }
+        
+        return ans;
+    }
+};
