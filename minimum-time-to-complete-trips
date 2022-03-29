@@ -1,0 +1,38 @@
+class Solution {
+private:
+    long long compute(long long t, vector<int> &time) {
+        
+        long long n = time.size();
+        
+        long long trips = 0;
+            
+        for(int i=0;i<n;++i) 
+            trips += (t / time[i]);
+        
+        return trips;
+    }    
+public:
+    long long minimumTime(vector<int>& time, int totalTrips) {
+        
+        long long n = time.size();
+        
+        long long s = 1;
+        long long e = 1e14;
+        
+        long long ans = -1;
+        
+        while(s <= e) {
+            
+            long long mid = s + (e - s)/2;
+            
+            long long trips = compute(mid, time);
+            
+            if(trips >= totalTrips)
+                e = mid - 1;
+            else 
+                s = mid + 1;
+        }
+        
+        return s;
+    }
+};
