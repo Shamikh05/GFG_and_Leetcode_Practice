@@ -1,0 +1,54 @@
+class Solution {
+private:
+    bool canBePartitioned(vector<int> &nums, int m, int mid) {
+        
+        int sum = 0;
+        int partitions = 1;
+        
+        for(int num : nums) {
+            
+            sum += num;
+            
+            if(sum > mid) {
+                sum = num;
+                ++partitions;
+                
+                if(sum > mid) return false;
+            }
+        }
+        
+        if(partitions > m) 
+            return false;
+        
+        return true;
+    }
+public:
+    int splitArray(vector<int>& nums, int m) {
+        
+        int sum = 0;
+        
+        for(int num : nums) sum += num;
+        
+        int start = 0;
+        int end = sum;
+        
+        int ans = sum;
+        
+        while(start <= end) {
+            
+            int mid = start + ((end - start) / 2);
+            
+            bool isValid = canBePartitioned(nums, m, mid);
+            
+            if(isValid) {
+                ans = mid;
+                end =  mid - 1;
+            }
+            else {
+                start = mid + 1;
+            }
+        }
+        
+        return ans;
+    }
+};
