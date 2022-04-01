@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int countEven(int num) {
+        
+        int temp = num;
+        
+        int sum = 0;
+        int ans = 0;
+            
+        while(temp) {
+            sum += (temp % 10);
+            temp /= 10;
+        }
+        
+        return (sum & 1) ? ((num - 1) / 2) : (num / 2);
+    }
+};
