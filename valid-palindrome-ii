@@ -1,0 +1,41 @@
+class Solution {
+private:
+    bool checkFurther(string s, int start, int end) {
+        
+        while(start < end) {
+            
+            if(s[start] != s[end]) 
+                return false;
+            
+            start++;
+            end--;
+        }
+        
+        return true;
+    }
+public:
+    bool validPalindrome(string s) {
+        
+        int n = s.size();
+        
+        int start = 0;
+        int end = n - 1;
+        
+        
+        while(start < end) {
+            
+            if(s[start] != s[end]) {
+                
+                bool removeStart = checkFurther(s, start + 1, end);
+                bool removeEnd = checkFurther(s, start, end - 1);
+                
+                return (removeStart || removeEnd); 
+            }
+            
+            start++;
+            end--;
+        }
+        
+        return true;
+    }
+};
