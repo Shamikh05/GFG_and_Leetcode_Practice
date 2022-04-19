@@ -1,0 +1,22 @@
+class Solution {
+public:
+    long long waysToBuyPensPencils(int total, int cost1, int cost2) {
+        
+        long long ans = 0;
+        
+        long long pens = 0;
+        
+        while((long long)(pens * cost1) <= (long long)total) {
+            
+            long long remTotal = total - (cost1 * pens);
+            
+            long long pencils = (remTotal / cost2);
+            
+            ans += pencils + 1;
+            
+            pens++;
+        }
+        
+        return ans;
+    }
+};
