@@ -1,0 +1,42 @@
+class Solution {
+private:
+    string codeChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    map<string, string> codeToUrl, UrlToCode;
+public:
+
+    Solution() {
+                
+    }
+    
+    // Encodes a URL to a shortened URL.
+    string encode(string longUrl) {
+        
+        string code;
+        
+        while(codeToUrl.find(code) == codeToUrl.end()) {
+            
+            random_shuffle(codeChars.begin(), codeChars.end());
+        
+            code = codeChars.substr(0,5);
+            
+            code = "http://tinyurl.com/" + code;
+        
+            if(codeToUrl.find(code) == codeToUrl.end()) {
+                codeToUrl[code] = longUrl;
+                UrlToCode[longUrl] = code;
+            }   
+        }
+        
+        return code;
+    }
+
+    // Decodes a shortened URL to its original URL.
+    string decode(string shortUrl) {
+        
+        return codeToUrl[shortUrl];
+    }
+};
+
+// Your Solution object will be instantiated and called as such:
+// Solution solution;
+// solution.decode(solution.encode(url));
