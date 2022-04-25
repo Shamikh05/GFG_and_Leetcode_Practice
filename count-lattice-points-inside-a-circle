@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int countLatticePoints(vector<vector<int>>& circles) {
+        
+        int n = circles.size();
+        
+        int ans = 0;
+        
+        // If centre is (1,1) and radius is 1, then x and y coordinate can be minimum 0
+        
+        // If centre is (100,100) and radius is 100, then x and y coordinate can be               // maximum 100
+        
+        
+        for(int i=0;i<=200;++i) {
+            
+            for(int j=0;j<=200;++j) {
+                
+                for(int k=0;k<n;++k) {
+                    
+                    int a = circles[k][0];
+                    int b = circles[k][1];
+                    int r = circles[k][2];
+                    
+                    // (x-a)^2 + (y-a)^2 <= r^2
+                    // lhs = (x-a)^2 + (y-a)^2
+                    // rhs = r^2
+                    
+                    int lhs = ((i-a) * (i-a)) + ((j-b) * (j-b));
+                    int rhs = r * r;
+                    
+                    if(lhs <= rhs) {
+                        ++ans;
+                        break; // If the point staisfies any one circle taking it into a                                // nswerr
+                    }
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
