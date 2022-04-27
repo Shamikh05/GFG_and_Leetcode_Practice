@@ -1,0 +1,56 @@
+class Solution {
+private:
+    vector<int> parent;
+    vector<int> rank;
+public:
+    int findPar(int node) {
+        
+        if(node==parent[node]) return node;
+        
+        return parent[node] = findPar(parent[node]);
+    }
+    
+    void doUnion(int u, int v) {
+        
+        u = findPar(u);
+        v = findPar(v);
+        
+        if(rank[u] < rank[v]) {
+            parent[u] = v;
+        }
+        else if(rank[v] < rank[u]) {
+            parent[v] = u;
+        }
+        else {
+            parent[v] = u;
+            ++rank[u];
+        }
+    }
+    
+    string smallestStringWithSwaps(string s, vector<vector<int>>& pairs) {
+        
+        int n = s.size();
+        int p = pairs.size();
+        
+        rank.resize(n,-1);
+        
+        for(int i=0;i<n;++i) parent.push_back(i);
+        
+        for(int i=0;i<p;++i) doUnion(pairs[i][0], pairs[i][1]);
+
+        for(int i=0;i<n;++i) parent[i] = findPar(parent[i]);
+        
+        unordered_map<int, priority_queue<char, vector<char>, greater<char>>> mp;
+        
+        for(int i=0;i<n;i++) mp[parent[i]].push(s[i]);
+        
+        string ans = "";
+        
+        for (int i=0;i<n;i++) {
+            ans += mp[parent[i]].top();
+            mp[parent[i]].pop();
+        }
+        
+        return ans;
+    }
+};
