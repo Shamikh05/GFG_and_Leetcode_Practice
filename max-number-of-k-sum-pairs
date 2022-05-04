@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int maxOperations(vector<int>& nums, int k) {
+        
+        int n = nums.size();
+        
+        sort(nums.begin(), nums.end());
+        
+        int startPtr = 0;
+        int endPtr = n - 1;
+        
+        int ans = 0;
+        
+        while(startPtr < endPtr) {
+            
+            int sum = nums[startPtr] + nums[endPtr];
+            
+            if(sum < k) {
+                ++startPtr;
+            }
+            else if(sum > k) {
+                --endPtr;
+            }
+            else {
+                ++ans;
+                
+                ++startPtr;
+                --endPtr;
+            }
+        }
+        
+        return ans;
+    }
+};
