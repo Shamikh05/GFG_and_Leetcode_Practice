@@ -1,0 +1,33 @@
+class Solution {
+private:
+    void fillUp(string digits, int idx, vector<string> &v, string temp, vector<string> &ans) {
+        
+        if(idx==digits.size()) {
+            ans.push_back(temp);
+            return;
+        }
+        
+        int dig = digits[idx] - '0';
+        
+        for(char ch : v[dig]) {
+            temp.push_back(ch);
+            fillUp(digits, idx+1, v, temp, ans);
+            temp.pop_back();
+        }
+    }
+public:
+    vector<string> letterCombinations(string digits) {
+        
+        if(digits.size()==0) return {};
+        
+        vector<string> ans;
+        
+        string temp = "";
+        
+        vector<string> v = {"?", "?", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        
+        fillUp(digits, 0, v, temp, ans);
+        
+        return ans;
+    }
+};
