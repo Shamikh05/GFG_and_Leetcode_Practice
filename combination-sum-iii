@@ -1,0 +1,31 @@
+class Solution {
+private:
+    void compute(int dig, int k, int n, vector<int> &temp, vector<vector<int> > &ans) {
+        
+        if(n==0 and temp.size()==k) {
+            ans.push_back(temp);
+            return;
+        }
+        
+        if(n < 1 or dig <= 0) return;
+        
+        compute(dig-1, k, n, temp, ans);
+        
+        temp.push_back(dig);
+        compute(dig-1, k, n-dig, temp, ans);
+        
+        temp.pop_back();
+        
+        return;
+    }
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        
+        vector<int> temp;
+        vector<vector<int> > ans;
+        
+        compute(9, k, n, temp, ans);
+        
+        return ans;
+    }
+};
