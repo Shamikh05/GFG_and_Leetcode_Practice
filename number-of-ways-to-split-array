@@ -1,0 +1,27 @@
+class Solution {
+    # define ll long long
+public:
+    int waysToSplitArray(vector<int>& nums) {
+        
+        ll n = nums.size();
+        
+        ll ts = 0;
+        
+        ll ls = 0;
+        ll rs = 0;
+        
+        for(ll num : nums) ts += num;
+        
+        ll ans = 0;
+        
+        for(ll i=0;i<n-1;++i) {
+            
+            ls += nums[i];
+            rs = ts - ls;
+            
+            if(ls >= rs) ++ans;
+        }
+        
+        return ans;
+    }
+};
