@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int percentageLetter(string s, char letter) {
+        
+        int l = 0;
+        
+        for(char ch : s) {
+            if(ch==letter) ++l;
+        }
+        
+        return (l * 100) / s.size();
+    }
+};
