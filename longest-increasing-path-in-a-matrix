@@ -1,0 +1,47 @@
+class Solution {
+private:
+    
+    vector<vector<int> > dp;
+    
+    int compute(int i, int j, vector<vector<int>>& matrix, int m, int n) {
+        
+        if(dp[i][j] != -1) return dp[i][j];
+        
+        int up = 0;
+        int down = 0;
+        int left = 0;
+        int right = 0;
+        
+        if(i>0 and matrix[i-1][j] < matrix[i][j]) up = compute(i-1, j, matrix, m, n);
+        if(i<(m-1) and matrix[i+1][j] < matrix[i][j]) down = compute(i+1, j, matrix, m, n);
+        if(j>0 and matrix[i][j-1] < matrix[i][j]) left = compute(i, j-1, matrix, m, n);
+        if(j<(n-1) and matrix[i][j+1] < matrix[i][j]) right = compute(i, j+1, matrix, m, n);
+        
+        return dp[i][j] = 1 + max(left, max(right, max(up, down)));
+    }
+public:
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        
+        int m = matrix.size();
+        int n = matrix[0].size();
+        
+        dp.resize(m, vector<int>(n, -1));
+        
+        int ans = 0;
+        
+        for(int i=0;i<m;++i) {
+            
+            for(int j=0;j<n;++j) {
+                
+                int result;
+                
+                if(dp[i][j] != -1) result = dp[i][j];
+                else result = compute(i, j, matrix, m, n);
+                
+                ans = max(ans, result);
+            }
+        }
+        
+        return ans;
+    }
+};
