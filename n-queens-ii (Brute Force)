@@ -1,0 +1,77 @@
+class Solution {
+private:
+    bool isPossibleToPlace(int row, int col, int n, vector<string> &board) {
+        
+        int dupRow = row;
+        int dupCol = col;
+        
+        while(row >= 0 and col >= 0) {
+            
+            if(board[row][col]=='Q') 
+                return false;
+            
+            --row;
+            --col;
+        }
+        
+        row = dupRow;
+        col = dupCol;
+        
+        while(col >= 0) {
+            
+            if(board[row][col]=='Q') 
+                return false;
+            
+            --col;
+        }
+        
+        row = dupRow;
+        col = dupCol;
+        
+        while(row < n and col >= 0) {
+            
+            if(board[row][col]=='Q') 
+                return false;
+            
+            ++row;
+            --col;
+        }
+        
+        return true;
+    }
+    
+    
+    int calcDistinctSol(int col, int n, vector<string> &board) {
+        
+        if(col==n) {
+            return 1;
+        }
+        
+        int solutions = 0;
+        
+        for(int i=0;i<n;++i) {
+            
+            if(isPossibleToPlace(i, col, n, board)) {
+                
+                board[i][col] = 'Q';
+                solutions += calcDistinctSol(col+1, n, board);
+                board[i][col] = '.';
+            }
+        }
+        
+        return solutions;
+    }
+public:
+    int totalNQueens(int n) {
+        
+        vector<string> board;
+        
+        string s(n, '.');
+        
+        for(int i=0;i<n;++i) {
+            board.push_back(s);
+        }
+        
+        return calcDistinctSol(0, n, board);
+    }
+};
