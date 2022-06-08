@@ -1,0 +1,23 @@
+class Solution {
+private:
+    bool checkForPalindrome(string str) {
+        
+        int n = str.size();
+        
+        for(int i=0;i<(n/2);++i) {
+            
+            if(str[i] != str[n-i-1]) return false;
+        }
+        
+        return true;
+    }
+public:
+    int removePalindromeSub(string s) {
+        
+        bool isPalindrome = checkForPalindrome(s);
+        
+        if(isPalindrome) return 1;
+        
+        return 2;
+    }
+};
