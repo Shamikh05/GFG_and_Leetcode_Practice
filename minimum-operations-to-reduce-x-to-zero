@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        
+        int n = nums.size();
+        
+        int totalSum = 0;
+        
+        for(int num : nums) {
+            totalSum += num;
+        }
+        
+        int target = totalSum - x;
+        
+        if(target < 0) return -1;
+        
+        int maxLen = 0;
+        int subArrSum = 0;
+        
+        int startIdx = 0;
+        
+        bool found = false;
+        
+        for(int endIdx=0;endIdx<n;++endIdx) {
+            
+            subArrSum += nums[endIdx];
+            
+            while(startIdx <= endIdx and subArrSum > target) {
+                subArrSum -= nums[startIdx];
+                ++startIdx;
+            }
+            
+            if(subArrSum==target) {  
+                found = true;
+                int currLen = endIdx - startIdx + 1;
+                maxLen = max(maxLen, currLen);
+            }
+        }
+        
+        int minOp = n - maxLen;
+        
+        return (found) ? minOp : -1;
+    }
+};
