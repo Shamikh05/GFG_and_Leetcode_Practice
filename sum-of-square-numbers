@@ -1,0 +1,23 @@
+# define ll long long
+
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        
+        ll n = sqrt(c);
+        
+        ll a = 0;
+        ll b = n;
+        
+        while(a <= b) {
+            
+            ll squareResult = (a * a) + (b * b);
+            
+            if(squareResult < c) ++a;
+            else if(squareResult > c) --b;
+            else return true;
+        }
+        
+        return false;
+    }
+};
