@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool checkPossibility(vector<int>& nums) {
+        
+        int n = nums.size();
+        
+        vector<int> leftLargest(n, 0);
+        leftLargest[0] = nums[0];
+        
+        for(int i=1;i<n;++i) {
+            leftLargest[i] = max(leftLargest[i-1], nums[i]);
+        }
+        
+        vector<int> rightLowest(n, 0);
+        rightLowest[n-1] = nums[n-1];
+        
+        for(int i=n-2;i>=0;--i) {
+            rightLowest[i] = min(rightLowest[i+1], nums[i]);
+        }
+        
+        int leftViol = 0;
+        int rightViol = 0;
+        
+        for(int i=0;i<n;++i) {
+            
+            if(nums[i] > rightLowest[i]) ++rightViol;
+            
+            if(nums[i] < leftLargest[i]) ++leftViol;
+        }
+        
+        return (leftViol <= 1 or rightViol <= 1);
+    }
+};
