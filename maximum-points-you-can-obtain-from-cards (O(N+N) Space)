@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        
+        int n = cardPoints.size();
+        
+        vector<int> leftSum(n, 0);
+        leftSum[0] = cardPoints[0];
+        
+        for(int i=1;i<n;++i) {
+            leftSum[i] = leftSum[i-1] + cardPoints[i];
+        }
+        
+        vector<int> rightSum(n, 0);
+        rightSum[n-1] = cardPoints[n-1];
+        
+        for(int i=n-2;i>=0;--i) {
+            rightSum[i] = rightSum[i+1] + cardPoints[i];
+        }
+        
+        int leftIdx = -1;
+        int rightIdx = n - k;
+        
+        int maxScore = INT_MIN;
+        
+        while(rightIdx <= n) {
+            
+            int scoreFromLeft = (leftIdx != -1) ? leftSum[leftIdx] : 0;
+            int scoreFromRight = (rightIdx != n) ? rightSum[rightIdx] : 0;
+            
+            int currScore = scoreFromLeft + scoreFromRight;
+            
+            maxScore = max(maxScore, currScore);
+            
+            ++leftIdx;
+            ++rightIdx;
+        }
+        
+        return maxScore;
+    }
+};
