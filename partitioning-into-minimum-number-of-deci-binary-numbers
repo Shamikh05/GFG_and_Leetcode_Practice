@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int minPartitions(string n) {
+        
+        int minPosNums = 0;
+        
+        for(char ch : n) { 
+            int dig = ch - '0';
+            minPosNums = max(minPosNums, dig);
+        }
+        
+        return minPosNums;
+    }
+};
