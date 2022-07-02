@@ -1,0 +1,43 @@
+# define ll long long
+# define mod 1000000007
+
+class Solution {
+public:
+    int maxArea(int h, int w, vector<int>& horizontalCuts, vector<int>& verticalCuts) {
+        
+        ll lenHori = horizontalCuts.size();
+        ll lenVert = verticalCuts.size();
+        
+        sort(horizontalCuts.begin(), horizontalCuts.end());
+        sort(verticalCuts.begin(), verticalCuts.end());
+        
+        ll maxHori = INT_MIN;
+        ll maxVert = INT_MIN;
+        
+        ll prevLine = 0;
+        
+        for(ll i=0; i<lenHori; ++i) {
+            
+            ll LenDiff = horizontalCuts[i] - prevLine;
+            maxHori = max(maxHori, LenDiff);
+            prevLine = horizontalCuts[i];
+        }
+        
+        maxHori = max(maxHori, (h-prevLine));
+        
+        prevLine = 0;
+        
+        for(ll i=0; i<lenVert; ++i) {
+            
+            ll LenDiff = verticalCuts[i] - prevLine;
+            maxVert = max(maxVert, LenDiff);
+            prevLine = verticalCuts[i];
+        }
+        
+        maxVert = max(maxVert, (w-prevLine));
+        
+        ll ans = (maxHori % mod) * (maxVert % mod);
+        
+        return ans % mod;
+    }
+};
