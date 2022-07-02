@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int arrangeCoins(int n) {
+        
+        int low = 1;
+        int high = n;
+        
+        while(low <= high) {
+            
+            int mid = low + ((high - low) >> 1);
+            
+            long long coins = ((long long)mid * ((long long)mid + 1)) >> 1;
+            
+            if(coins < n) low = mid + 1;
+            else if(coins > n) high = mid - 1;
+            else return mid;
+        }
+        
+        return high;
+    }
+};
