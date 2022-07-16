@@ -1,0 +1,54 @@
+class Solution {
+    # define ll long long
+public:
+    int latestTimeCatchTheBus(vector<int>& buses, vector<int>& passengers, int capacity) {
+        
+        ll b = buses.size();
+        sort(buses.begin(), buses.end());
+        
+        ll p = passengers.size();
+        sort(passengers.begin(), passengers.end());
+                
+        ll c = capacity;
+        
+        ll i = 0;
+        ll j = 0;
+        
+        while(i<p and j<b) {
+            
+            while(i<p and j<b and passengers[i] <= buses[j] and c) {
+                ++i;
+                --c;
+            }
+            
+            ++j;
+            
+            if(j>=b and c and i) {
+                
+                ll start = passengers[i-1] + 1;
+                
+                for(ll k=buses[b-1];k>=start;--k) {
+                    return k;
+                }
+            }
+            
+            c = capacity;
+        }
+        
+        if(j<b) return buses[b-1];
+        
+        ll ext1 = 0;
+        ll ext2;
+        
+        if(i) ext2 = passengers[i-1] - 1;
+        else ext2 = min(passengers[i]-1, buses[j-1]);
+        
+        for(ll k=ext2;k>=ext1;--k) {
+                
+            if(!binary_search(passengers.begin(), passengers.end(), k)) 
+                return k; 
+        }
+        
+        return 0;
+    }
+};
