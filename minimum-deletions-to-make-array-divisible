@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, vector<int>& numsDivide) {
+        
+        int n = numsDivide.size();
+        
+        int gcdOfAll = numsDivide[0];
+        
+        for(int i=1;i<n;++i) {
+            gcdOfAll = __gcd(gcdOfAll, numsDivide[i]);
+        }
+        
+        
+        priority_queue<int, vector<int>, greater<int> > pq;
+        
+        for(int num : nums) pq.push(num);
+        
+        int ans = 0;
+        
+        while(!pq.empty()) {
+            
+            int currMin = pq.top();
+            pq.pop();
+            
+            if(gcdOfAll % currMin == 0) 
+                return ans;
+            
+            ++ans;
+        }
+        
+        return -1;
+    }
+};
