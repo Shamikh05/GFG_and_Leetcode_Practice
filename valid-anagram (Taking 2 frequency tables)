@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        
+        vector<int> sFreq(26, 0);
+        vector<int> tFreq(26, 0);
+        
+        for(char ch : s) {
+            ++sFreq[ch - 'a'];
+        }
+        
+        for(char ch : t) {
+            ++tFreq[ch - 'a'];
+        }
+        
+        return (sFreq == tFreq);
+    }
+};
