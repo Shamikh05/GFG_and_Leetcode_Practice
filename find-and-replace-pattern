@@ -1,0 +1,41 @@
+class Solution {
+private:
+    string normalizeStr(string &str) {
+        
+        int n = str.size();
+        
+        string normStr = "";
+        
+        unordered_map<char, int> freq;
+        
+        for(char ch : str) {
+            if(freq.count(ch) == 0) {
+                freq[ch] = freq.size();
+            }
+        }
+        
+        for(char ch : str) {
+            normStr.push_back(freq[ch]);
+        }
+        
+        return normStr;
+    }
+public:
+    vector<string> findAndReplacePattern(vector<string>& words, string pattern) {
+        
+        string normPattern = normalizeStr(pattern);
+                
+        vector<string> ans;
+        
+        for(string word : words) {
+            
+            string normWord = normalizeStr(word);
+            
+            if(normWord == normPattern) {
+                ans.push_back(word);
+            }
+        }
+        
+        return ans;
+    }
+};
