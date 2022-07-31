@@ -1,0 +1,52 @@
+class Solution {
+    # define ll long long
+private:
+    void fillUp(vector<ll> &v, vector<int> &edges, int node) {
+        
+        ll i = 0;
+        
+        while(i < v.size()) {
+            
+            if(node > -1 and v[node] == -1) {
+                
+                v[node] = i;
+                node = edges[node];
+                
+                ++i;
+            }
+            else {
+                return;
+            }
+        }
+    }
+public:
+    int closestMeetingNode(vector<int>& edges, int node1, int node2) {
+        
+        ll n = edges.size();
+        
+        vector<ll> v1(n, -1);
+        vector<ll> v2(n, -1);
+        
+        fillUp(v1, edges, node1);
+        fillUp(v2, edges, node2);
+        
+        ll ans = -1;
+        
+        ll OvRes = 1e6;
+        
+        for(ll i=0;i<n;++i) {
+            
+            if(v1[i] != -1 and v2[i] != -1) {
+                
+                ll res = max(v1[i], v2[i]);
+            
+                if(res < OvRes) {
+                    ans = i;
+                    OvRes = res;
+                }
+            }
+        }
+        
+        return ans;
+    }
+};
