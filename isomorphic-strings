@@ -1,0 +1,27 @@
+class Solution {
+private:
+    string normalizeStr(string str) {
+        map<char, int> mp;
+        
+        for(char ch : str) {
+            if(mp.find(ch) == mp.end()) {
+                mp[ch] = mp.size();
+            }
+        }
+        
+        string res = "";
+        
+        for(char ch : str) {
+            res.push_back(mp[ch]);
+        }
+        
+        return res;
+    }
+public:
+    bool isIsomorphic(string s, string t) {
+        string sNorm = normalizeStr(s);
+        string tNorm = normalizeStr(t);
+        
+        return sNorm == tNorm;
+    }
+};
