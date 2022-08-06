@@ -1,0 +1,7 @@
+class Solution {
+public:
+    int maximumGroups(vector<int>& grades) {
+        int n = grades.size();
+        return (int)(sqrt(2*n + 0.25) - 0.5);
+    }
+};
