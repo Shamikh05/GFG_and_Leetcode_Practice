@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isPossible(vector<int>& nums) {
+        int numsSize = nums.size();
+        vector<int> seq(numsSize, 0);
+        vector<bool> used(numsSize, 0);
+        
+        for(int i=0;i<numsSize;++i) {
+            int minSeq = INT_MAX;
+            int seqTaken = -1;
+            for(int j=i-1;j>=0;--j) {
+                if(nums[j]==(nums[i]-1) and used[j]==0 and seq[j]<minSeq) {
+                    minSeq = seq[j];
+                    seqTaken = j;
+                }
+                else if(nums[j] < (nums[i]-1)) {
+                    break;
+                }
+            }
+            seq[i] = (minSeq != INT_MAX) ? (minSeq + 1) : 1;
+            if(seqTaken > -1) {
+                used[seqTaken] = 1;
+            }
+        }
+        
+        for(int i=0;i<numsSize;++i) {
+            if(used[i]==0 and seq[i] < 3) {
+                return false;
+            }
+        }
+        return true;
+    }
+};
