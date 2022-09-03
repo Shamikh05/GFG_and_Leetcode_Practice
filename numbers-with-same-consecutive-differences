@@ -1,0 +1,37 @@
+class Solution {
+private:
+    void fillAns(int num, int n, int k, set<int> &ans) {
+        if(n==0) {
+            ans.insert(num);
+            return;
+        }
+        
+        int lastDig = num % 10;
+        int lastDigInc = lastDig + k;
+        int lastDigDec = lastDig - k;
+        
+        if(lastDigInc <= 9) {
+            int newNum = (num * 10) + lastDigInc;
+            fillAns(newNum, n-1, k, ans);
+        }
+        
+        if(lastDigDec >= 0) {
+            int newNum = (num * 10) + lastDigDec;
+            fillAns(newNum, n-1, k, ans);
+        }
+    }
+public:
+    vector<int> numsSameConsecDiff(int n, int k) {
+        set<int> ans;
+        for(int i=1;i<=9;++i) {
+            fillAns(i, n-1, k, ans);
+        }
+        
+        vector<int> finalAns;
+        for(int num : ans) {
+            finalAns.push_back(num);
+        }
+        
+        return finalAns;
+    }
+};
