@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool checkIfPangram(string sentence) {
+        vector<bool> charPresent(26, false);
+        
+        int charCount = 0;
+        for(char ch : sentence) {
+            int charIdx = (ch - 'a');
+            if(charPresent[charIdx] == false) {
+                ++charCount;
+                charPresent[charIdx] = true;   
+            }
+        }
+        return (charCount == 26);
+    }
+};
