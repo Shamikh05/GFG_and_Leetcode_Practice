@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        vector<string> dp(n+1, "");
+        string prevStr = "1";
+        
+        for(int i=2;i<=n;++i) {
+            string currStr = "";
+            int prevStrLen = prevStr.length();
+            
+            int travPtr = 0;
+            while(travPtr < (prevStrLen - 1)) {
+                int charFreq = 0;
+                while(travPtr < (prevStrLen - 1) && prevStr[travPtr] == prevStr[travPtr + 1]) {
+                    ++charFreq;
+                    ++travPtr;
+                }
+                
+                currStr += to_string(charFreq + 1) + prevStr[travPtr];
+                ++travPtr;
+            }
+            
+            if(prevStrLen == 1 || prevStr[prevStrLen -1] != prevStr[prevStrLen-2]) {
+                currStr += to_string(1) + prevStr[prevStrLen-1];
+            }
+            
+            prevStr = currStr;
+        }
+        return prevStr;
+    }
+};
