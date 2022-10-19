@@ -1,0 +1,29 @@
+class Solution {
+private:
+    static bool comp(pair<int, string> &p1, pair<int, string> &p2) {
+        return (p1.first > p2.first) || ((p1.first == p2.first) && (p1.second < p2.second));
+    }
+public:
+    vector<string> topKFrequent(vector<string>& words, int k) {
+        unordered_map<string, int> wordFreq;
+        for(string word : words) {
+            ++wordFreq[word];    
+        }
+        
+        vector<pair<int, string> > topK;
+        for(auto it : wordFreq) {
+            string word = it.first;
+            int freq = it.second;
+            topK.push_back(make_pair(freq, word));
+        }
+        
+        vector<string> ans;
+        sort(topK.begin(), topK.end(), comp);
+        for(int i=0;i<topK.size() and k>0;++i) {
+            ans.push_back(topK[i].second);
+            --k;
+        }
+        
+        return ans;
+    }
+};
