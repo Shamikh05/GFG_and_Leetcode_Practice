@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> findErrorNums(vector<int>& nums) {
+        int n = nums.size();
+        
+        int totalSum = (n * (n + 1)) / 2;
+        int presentSum = 0;
+        int duplicateNum;
+        
+        for(int i = 0; i < n; ++i) {
+            if(nums[abs(nums[i])-1] < 0) {
+                duplicateNum = abs(nums[i]);
+            } else {
+                nums[abs(nums[i])-1] *= -1;   
+            }
+            presentSum += abs(nums[i]);
+        }
+        
+        int missingNum = totalSum - (presentSum - duplicateNum);
+        return {duplicateNum, missingNum};
+    }
+};
