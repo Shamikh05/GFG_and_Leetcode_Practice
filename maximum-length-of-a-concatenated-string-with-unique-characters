@@ -1,0 +1,49 @@
+class Solution {
+private:
+    int computeMaxLen(int idx, unordered_map<char, int> &freq, vector<string> &arr) {
+        // Calulate the number of characters present in the subsequence
+        int charCnt = 0;
+        for(auto it : freq) {
+            charCnt += (it.second > 0) ? 1 : 0;
+        }
+        
+        // Base Condition
+        if(idx == arr.size()) {
+            return charCnt;
+        }
+        
+        // Skip the current string
+        int leaveStr = computeMaxLen(idx+1, freq, arr);
+        
+        // Include the current string in subsequence
+        int takeStr = charCnt;
+        
+        // Add current string's characters into the frequency table
+        bool duplicateChar = false;
+        for(char ch : arr[idx]) {
+            if(freq[ch] > 0) {
+                duplicateChar = true;
+            }
+            ++freq[ch];
+        }
+        
+        // If there in no any common character between current string and previous string, include the string in subsequence
+        if(! duplicateChar) {
+           takeStr = computeMaxLen(idx+1, freq, arr); 
+        }
+        
+        // Remove current string's characters from the frequency table
+        for(char ch : arr[idx]) {
+            --freq[ch];
+        }
+        
+        // return maximum of both the cases
+        return max(takeStr, leaveStr);
+    }
+public:
+    int maxLength(vector<string>& arr) {
+        int n = arr.size();
+        unordered_map<char, int> freq;
+        return computeMaxLen(0, freq, arr);
+    }
+};
