@@ -1,0 +1,58 @@
+class Solution {
+public:
+    int shortestPath(vector<vector<int>>& grid, int k) {
+        int rowCnt = grid.size();
+        int colCnt = grid[0].size();
+        
+        vector<vector<int> > vis(rowCnt, vector<int>(colCnt, -1));
+        queue<vector<int> > bfs;
+        bfs.push({0, 0, k, 0});
+        
+        while(!bfs.empty()) {
+            // Get the front cell info from the queue
+            auto currCell = bfs.front();
+            int row = currCell[0];
+            int col = currCell[1];
+            int remObs = currCell[2];
+            int dist = currCell[3];
+            
+            // Pop out the current cell info from queue
+            bfs.pop();
+            
+            // If the current cell is the last cell, return the distance
+            if(row == (rowCnt - 1) && col == (colCnt - 1)) {
+                return dist;
+            }
+            
+            // If any index is getting out of bound, skip the operations on current cell
+            if((row < 0) || (row >= rowCnt) || (col < 0) || (col >= colCnt)) {
+                continue;
+            }
+            
+            // If the current cell is obstacle then remove the obstacle if possible else skip the operation
+            if(grid[row][col] == 1) {
+                if(remObs > 0) {
+                    --remObs;
+                } else {
+                    continue;
+                }
+            }
+            
+            // If the cell is already visited and also more obstacles were removed previously than current then skip the operation
+            if(vis[row][col] >= remObs) {
+                continue;
+            }
+            
+            // Mark the current cell as visited and enter the current number of obstacles removed in the vis array
+            vis[row][col] = remObs;
+            
+            // Push the up, down, left and right cells in the queue
+            bfs.push({row-1, col, remObs, dist+1});
+            bfs.push({row+1, col, remObs, dist+1});
+            bfs.push({row, col-1, remObs, dist+1});
+            bfs.push({row, col+1, remObs, dist+1});
+        }
+        
+        return -1;
+    }
+};
