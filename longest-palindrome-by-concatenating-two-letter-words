@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int longestPalindrome(vector<string>& words) {
+        unordered_map<string, int> mp;
+        
+        int ans = 0;
+        for(string str : words) {
+            string revStr = str;
+            reverse(revStr.begin(), revStr.end());
+            
+            if(mp[revStr] > 0) {
+                ans += 4;
+                --mp[revStr];
+            } else {
+                ++mp[str];
+            }
+        }
+        
+        for(auto it : mp) {
+            if(it.second == 1 && it.first[0] == it.first[1]) {
+                ans += 2;
+                break;
+            } 
+        }
+        
+        return ans;
+    }
+};
